@@ -28,6 +28,12 @@ class _SettingsState extends State<Settings> {
                       title: Text('About Us'),
                       trailing: Icon(Icons.chevron_right),
                     ),
+                  ),Padding(
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                    child: ListTile(
+                      title: Text('App Infoa'),
+                      trailing: Icon(Icons.chevron_right),
+                    ),
                   ),
                 ]
             ).toList()));

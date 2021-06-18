@@ -15,6 +15,12 @@ class _UserProfileState extends State<UserProfile> {
           Padding(
             padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
             child: ListTile(
+              title: Text('User Details'),
+              trailing: Icon(Icons.chevron_right),
+            ),
+          ),Padding(
+            padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+            child: ListTile(
               title: Text('Change Password'),
               trailing: Icon(Icons.chevron_right),
             ),
