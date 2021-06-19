@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   void _login() {
-    var user = new User(_emailController.text, _passwordController.text);
+    var user = new User(_emailController.text.trim(), _passwordController.text.trim());
     user.signIn(context);
   }
 
