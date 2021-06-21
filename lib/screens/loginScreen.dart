@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   void _login() {
-    var user = new User(_emailController.text.trim(), _passwordController.text.trim());
+    var user = new User(_emailController.text.trim(), _passwordController.text.trim(), '', '');
     user.signIn(context);
   }
 
@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     _formKey.currentState!.validate()
                         ? _login()
-                        : null;
+                        : print('invalid form');
                   },
                   style: TextButton.styleFrom(
                     primary: Colors.white,

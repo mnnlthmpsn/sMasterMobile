@@ -3,39 +3,48 @@ import 'package:sound_kit/utils/api.dart';
 import 'package:sound_kit/utils/helpers.dart';
 
 class User {
+  final String name;
+  final String deviceId;
   final String email;
   final String password;
 
-  User(this.email, this.password);
+  User(this.email, this.password, this.name, this.deviceId);
 
   // to fromJson to User object
   User.fromJson(Map<String, dynamic> json)
       : email = json['email'],
-        password = json['password'];
+        password = json['password'],
+        name = json['name'],
+        deviceId = json['deviceId'];
 
   // from User to json converter
   Map<String, dynamic> toJson() {
-    return {'email': email, 'password': password};
+    return {
+      "email": email,
+      "password": password,
+      "name": name,
+      "deviceId": deviceId
+    };
   }
 
   signIn(context) async {
-    var user = new User(this.email, this.password);
+    var user = new User(this.email, this.password, this.name, this.deviceId);
     await login(user).then((response) {
       response['resp_code'] == '200'
           ? setTokenInStorage(context, response['token'])
           : showSnack(context, 'Incorrect Email or Password');
-    }).catchError((err){
+    }).catchError((err) {
       showSnack(context, err.toString());
     });
   }
 
   signUp(context) async {
-    var user = new User(this.email, this.password);
-    await register(user).then((response){
+    var user = new User(this.email, this.password, this.name, this.deviceId);
+    await register(user).then((response) {
       response['resp_code'] == '200'
           ? setTokenInStorage(context, response['token'])
           : showSnack(context, 'Account already exists');
-    }).catchError((err){
+    }).catchError((err) {
       showSnack(context, err.toString());
     });
   }

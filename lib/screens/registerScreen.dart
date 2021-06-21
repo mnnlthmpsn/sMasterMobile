@@ -12,6 +12,8 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   // textcontrollers
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _deviceIdController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
@@ -19,13 +21,19 @@ class _RegisterState extends State<Register> {
   void dispose() {
     // Clean up the controller when the widget is removed from the
     // widget tree.
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _deviceIdController.dispose();
     super.dispose();
   }
 
   _signUp() async {
-    var user = new User(_emailController.text, _passwordController.text);
+    var user = new User(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+        _nameController.text.trim(),
+        _deviceIdController.text.trim());
     user.signUp(context);
   }
 
@@ -53,13 +61,24 @@ class _RegisterState extends State<Register> {
                           SizedBox(
                               width: MediaQuery.of(context).size.width * .85,
                               child: TextFormField(
+                                controller: _nameController,
+                                keyboardType: TextInputType.text,
+                                validator: (value) =>
+                                    value!.isEmpty ? 'Required Field' : null,
+                                decoration:
+                                    InputDecoration(labelText: 'Fullname'),
+                              )),
+                          SizedBox(height: 20),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * .85,
+                              child: TextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) =>
                                     value!.isEmpty ? 'Required Field' : null,
                                 decoration: InputDecoration(labelText: 'Email'),
                               )),
-                          SizedBox(height: 30),
+                          SizedBox(height: 20),
                           SizedBox(
                               width: MediaQuery.of(context).size.width * .85,
                               child: TextFormField(
@@ -71,6 +90,18 @@ class _RegisterState extends State<Register> {
                                 decoration:
                                     InputDecoration(labelText: 'Password'),
                               )),
+                          SizedBox(height: 30),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * .85,
+                              child: TextFormField(
+                                controller: _deviceIdController,
+                                keyboardType: TextInputType.text,
+                                validator: (value) =>
+                                    value!.isEmpty ? 'Required Field' : null,
+                                decoration:
+                                    InputDecoration(labelText: 'Device ID'),
+
+                              )),
                           Padding(
                             padding: const EdgeInsets.only(top: 20.0),
                             child: InkWell(
@@ -80,7 +111,8 @@ class _RegisterState extends State<Register> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey),
                               ),
-                              onTap: () => newPageDestroyPrevious(context, Login()),
+                              onTap: () =>
+                                  newPageDestroyPrevious(context, Login()),
                             ),
                           )
                         ],
